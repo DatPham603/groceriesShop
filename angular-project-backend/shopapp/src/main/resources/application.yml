@@ -1,0 +1,38 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/shopapp?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      # DDL Data Definition Language
+#      none: Hibernate sẽ không thực hiện bất kỳ hành động nào liên quan đến schema của cơ sở dữ liệu. Schema phải được tạo thủ công trước khi ứng dụng chạy.
+#      validate: Hibernate sẽ chỉ kiểm tra schema hiện có trong cơ sở dữ liệu so với các thực thể (entities) trong mã nguồn Java. Nếu schema không khớp, ứng dụng sẽ không khởi động, nhưng sẽ không thực hiện thay đổi nào trong cơ sở dữ liệu.
+#      update: Hibernate sẽ tự động cập nhật schema cơ sở dữ liệu để phản ánh các thay đổi trong các thực thể Java. Điều này có thể bao gồm việc thêm cột mới, tạo bảng mới, nhưng sẽ không xóa hoặc thay đổi các cột, bảng đã tồn tại.
+#      create: Hibernate sẽ tạo lại toàn bộ schema mỗi khi ứng dụng khởi động. Điều này nghĩa là tất cả các bảng trong cơ sở dữ liệu sẽ bị xóa và tạo lại từ đầu dựa trên các thực thể Java. Dữ liệu sẽ bị mất mỗi khi ứng dụng khởi động.
+#      create-drop: Hibernate sẽ tạo lại toàn bộ schema khi ứng dụng khởi động và sẽ xóa schema đó khi ứng dụng dừng lại. Dữ liệu chỉ tồn tại trong suốt thời gian ứng dụng đang chạy.
+      ddl-auto: none #ddl-auto: Thiết lập cách Hibernate quản lý các bảng trong cơ sở dữ liệu  update, create, validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  message:
+    basename: i18n/message
+    encoding: UTF-8
+    default-locale: en
+application:
+  name: shopapp
+api:
+  prefix: api/v1
+jwt: #30 days : 30 * 24 * 60 * 60
+  expiration: 2592000
+  secretKey: "wa57Phai0B0YuwWiW6xKIrxKozvquBm4PFgh6oLhvao="
+#  secretKey: "COUjCzxA4dfdABTC+7n3qL5nWmdxgQVbRgP+7XSuwNM0fGX1HfENVuMNRJRmiSL6"
