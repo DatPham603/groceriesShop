@@ -31,6 +31,7 @@ public class JwtUtils {
     private int expiration;
     @Value("${jwt.secretKey}")
     private String secretKey;
+
     public String generateToken(User user) throws Exception{
         Map<String , Object> claims = new HashMap<>();
         //this.generateSecretKey();
