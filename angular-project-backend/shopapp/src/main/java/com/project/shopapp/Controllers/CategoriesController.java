@@ -19,15 +19,13 @@ import org.springframework.web.servlet.LocaleResolver;
 import java.util.List;
 import java.util.Locale;
 
-@RestController  //phương thức trong lớp này sẽ xử lý các yêu cầu HTTP và trả về các phản hồi dưới dạng dữ liệu JSON/XML
-//@Validated được sử dụng ở mức class để đánh dấu class này cần validate
-@RequestMapping("api/v1/categories")//http://localhost:8088/api/v1/categories?page=10&limit=20
+@RestController  
+@RequestMapping("api/v1/categories")
 @RequiredArgsConstructor
 public class CategoriesController {
     private final ICategoryService categoryService;
     private final LocalizationUtils localizationUtils;
-    @PostMapping("")//tạo mới
-    //nếu tham số truyền vào là một đối tượng thì thì nó được gọi là : Data Transfer Object (DTO) = Request Object
+    @PostMapping("")
     public ResponseEntity<?> createCategories(@Valid @RequestBody CategoryDTO categoriesDTO, BindingResult result){
         if(result.hasErrors()){
             List<String> ErrorMessages = result.getFieldErrors()
@@ -38,12 +36,12 @@ public class CategoriesController {
         categoryService.createCategory(categoriesDTO);
         return ResponseEntity.ok("This is insertCategories " + categoriesDTO);
     }
-    @GetMapping("") //@RequestParam Truyền các thông tin bổ sung, không bắt buộc vd products?category=electronics&sort=price
+    @GetMapping("")
     public ResponseEntity<List<Category>> getAllCategories(@RequestParam("page") int page, @RequestParam("limit") int limit){
         List<Category> categories = categoryService.getAllCategories();
         return ResponseEntity.ok(categories);
     }
-    @PutMapping("/{id}")//đã tồn tại
+    @PutMapping("/{id}")
     public ResponseEntity<UpdateCategoriesResponse> updateCategories(@PathVariable long id,
                                                                      @RequestBody CategoryDTO categoryDTO,
                                                                      HttpServletRequest request) throws DataNotFoundException {
