@@ -67,7 +67,6 @@ public class UserService implements IUserService{
         }
         if(user.get().getGoogleAccountId() == 0 && user.get().getFacebookAccountId() == 0){
             if(!passwordEncoder.matches(password,user.get().getPassword())){
-                //cũng có thể là thừa nếu dùng authenticationManager ở dưới rồi
                 throw new BadCredentialsException("Wrong phone number / password");
             }
         }
